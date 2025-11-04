@@ -36,7 +36,7 @@ Este projeto é de uso **acadêmico e educacional**, podendo ser reutilizado e a
 1. Garantir que você tem o Docker Desktop instalado: https://docs.docker.com/desktop/setup/install/windows-install/
 2. Abrir o terminal no lugar desejado
 3. Digitar: `git clone https://github.com/Pedro-Gulin/Voluntarios-Unidos.git`
-4. Entrar na pasta criada: `cd Sistema-de-voluntarios-cajuru`
+4. Entrar na pasta criada: `cd Sistema-de-voluntarios-cajuru` ou somente `cd Cajuru`
 5. Clicar no `INICIAR_PROGRAMA.bash` dentro da pasta `Cajuru`
 6. Esperar o processo terminar
 7. Após finalizar, pressione qualquer tecla
