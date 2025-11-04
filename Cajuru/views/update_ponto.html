@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="vertical-center">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-body">
+          <form action="http://localhost:8449/updt_ponto" method="post">
+            <p>ID do ponto:</p>
+            <p><input type="text" name="id" value="{{ ponto.id }}" readonly/></p>
+            <p>CPF do voluntario:</p>
+            <p><input type="text" name="cpf_voluntario" value="{{ ponto.cpf_voluntario }}" readonly/></p>
+            <p>Numero da carteirinha:</p>
+            <p><input type="text" name="numero_carteirinha" value="{{ ponto.numero_carteirinha }}" readonly/></p> 
+            <p>Horario:</p>
+            <p><input type="text" name="horario" placeholder="hora:minuto - dia/mes/ano"/></p> 
+            <br><br>
+            <p><input type="submit" value="Alterar" /></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

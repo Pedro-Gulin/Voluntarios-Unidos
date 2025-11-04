@@ -1,0 +1,68 @@
+{% extends"base.html" %}
+{% block content%}
+
+{% for message in get_flashed_messages() %}
+
+
+<div class="alert alert-success alert-dismissible fade show w-80 p-3" style="width: 420px; margin-left: 500px; margin-top: 30px; text-align: center;" role="alert">
+  {{ message }}
+</div>
+
+{% endfor %}
+
+<div class="vertical-center">
+  <div class="container view">
+    <div class="justify-content-center">
+      {% if nucleos_voluntariados|length> 0 %}
+      <table id="view_nucleos_voluntariados" class="table table-striped table-bordered" style="width:100%">
+        <p>Núcleo de voluntariado:</p>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>ID Voluntário</th>
+            <th>Nome Voluntário</th>
+            <th>Domingo</th>
+            <th>Segunda-feira</th>
+            <th>Terça-feira</th>
+            <th>Quarta-feira</th>
+            <th>Quinta-feira</th>
+            <th>Sexta-feira</th>
+            <th>Sábado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for nucleo_voluntariado in nucleos_voluntariados%}
+          <tr>
+            <td>{{ nucleo_voluntariado.id }}</td>
+            <td>{{ nucleo_voluntariado.id_voluntario }}</td>
+            <td>{{ nucleo_voluntariado.nome_voluntario }}</td>
+            <td>{{ nucleo_voluntariado.domingo }}</td>
+            <td>{{ nucleo_voluntariado.segunda_feira }}</td>
+            <td>{{ nucleo_voluntariado.terca_feira }}</td>
+            <td>{{ nucleo_voluntariado.quarta_feira }}</td>
+            <td>{{ nucleo_voluntariado.quinta_feira }}</td>
+            <td>{{ nucleo_voluntariado.sexta_feira }}</td>
+            <td>{{ nucleo_voluntariado.sabado }}</td>
+
+            <td><a href="http://localhost:8449/edit_nucleo_voluntariado?id_voluntario={{nucleo_voluntariado.id_voluntario}}">Editar</a></td>
+            <td><a href="http://localhost:8449/del_nucleo_voluntariado?id_voluntario={{nucleo_voluntariado.id_voluntario}}">Deletar</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <form action="http://localhost:8449/cadastrar_nucleo_voluntariado">
+        <p><input type="submit" value="Cadastrar Nucleo Voluntariado" /></p>
+      </form>
+      {% else %}
+      <p>Ainda não tem nucleos de voluntariado registrados!
+      <p>
+      <form action="http://localhost:8449/cadastrar_nucleo_voluntariado">
+        <p><input type="submit" value="Cadastrar Nucleo Voluntariado" /></p>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+{% endblock%}

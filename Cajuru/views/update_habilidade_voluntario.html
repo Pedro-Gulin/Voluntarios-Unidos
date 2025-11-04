@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="vertical-center">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-body">
+                    <form action="http://localhost:8449/updt_habilidade_voluntario" method="post">
+
+                        <p>ID voluntário:</p>
+                        <p><input type="text" name="id_voluntario" value="{{ habilidade_voluntario.id_voluntario }}"/></p>
+                        <p>Nome voluntário:</p>
+                        <p><input type="text" name="nome_voluntario" value="{{ habilidade_voluntario.nome_voluntario }}"/></p>
+                        <p>Nome da habilidade:</p>
+                        <p><input type="text" name="nome_habilidade" /></p>
+                        <br><br>
+                        <p><input type="submit" value="Alterar" /></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

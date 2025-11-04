@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #f0f4ff, #e8efff);
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    .options-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 20px;
+        padding: 60px 80px;
+        justify-items: center;
+    }
+
+    .option-card {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        width: 100%;
+        max-width: 350px;
+        text-align: center;
+        padding: 30px 20px;
+        text-decoration: none;
+        color: #333;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .option-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, #4f46e5, #06b6d4);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 0;
+    }
+
+    .option-card:hover::before {
+        opacity: 1;
+    }
+
+    .option-card span {
+        position: relative;
+        z-index: 1;
+        font-weight: 600;
+        font-size: 1.05rem;
+        display: block;
+    }
+
+    .option-card:hover {
+        color: #fff;
+        transform: translateY(-6px);
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+    }
+
+    .page-title {
+        text-align: center;
+        margin-top: 50px;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1e1e2f;
+    }
+
+    @media (max-width: 600px) {
+        .options-container {
+            padding: 30px 20px;
+        }
+        .page-title {
+            font-size: 1.6rem;
+        }
+    }
+</style>
+
+<h1 class="page-title">📊 Relatórios e Estatísticas</h1>
+
+<div class="options-container">
+    <a class="option-card" href="/voluntarios_mes"><span>Quantidade de voluntários por área por mês</span></a>
+    <a class="option-card" href="/dinheiro_area_mes"><span>Dinheiro economizado por área por mês</span></a>
+    <a class="option-card" href="/horas_volu_mes"><span>Horas trabalhadas por voluntário por mês</span></a>
+    <a class="option-card" href="/horas_area_mes"><span>Horas trabalhadas por área por mês</span></a>
+    <a class="option-card" href="/habilidades_associadas"><span>Habilidades associadas a voluntários</span></a>
+    <a class="option-card" href="/novos_volu_ano"><span>Voluntários novos por mês</span></a>
+    <a class="option-card" href="/volu_pontos_mes"><span>Pontos por funcionário por mês</span></a>
+</div>
+{% endblock %}

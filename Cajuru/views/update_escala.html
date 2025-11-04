@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="vertical-center">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-body">
+                    <form action="http://localhost:8449/updt_escala" method="post">
+
+                        <p>Nome voluntario:</p>
+                        <p><input type="text" name="nome_voluntario" value="{{ escala.nome_voluntario }}" /></p>
+                        <p>Nome area:</p>
+                        <p><input type="text" name="nome_area" /></p>
+                        <p>Data:</p>
+                        <p><input type="date" name="data" /></p>
+                        <p>Turno:</p>
+                        <p>
+                            <select name="turno" required>
+                                <option value="">Selecione...</option>
+                                <option value="manha">Manhã</option>
+                                <option value="tarde">Tarde</option>
+                                <option value="noite">Noite</option>
+                            </select>
+                        </p>
+                        <p>Status:</p>
+                        <p>
+                            <select name="status" required>
+                                <option value="">Selecione...</option>
+                                <option value="confirmado">Confirmado</option>
+                                <option value="ausente">Ausente</option>
+                                <option value="substituido">Substituído</option>
+                            </select>
+                        </p>
+                        <br><br>
+                        <p><input type="submit" value="Alterar" /></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

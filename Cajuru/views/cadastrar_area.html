@@ -1,0 +1,22 @@
+{% extends"base.html" %}
+{% block content%}
+<div class="vertical-center">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-body">
+                    <form action="http://localhost:8449/add_area" method="POST">
+                        <p>Nome:</p>
+                        <p><input type="text" name="nome" required /></p>
+                        <p>Andar onde se encontra:</p>
+                        <p><input type="text" name="quantidade_horas" required /></p>
+                        <p>Descrição:</p>
+                        <p><input type="text" name="descricao" required /></p>
+                        <p><input type="submit" value="Cadastrar" /></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock%}

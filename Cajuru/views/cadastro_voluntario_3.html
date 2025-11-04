@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Qual a disponibilidade para exercer o voluntariado? Máx 15 hs semanais - M/T/N até às 22 hs</h2>
+
+<form action = "{{ url_for('cadastro_voluntario.cadastro_voluntario_4') }}" method = "post">
+
+<p> 
+    <label><input type="checkbox" value="segundaFeira">2° feira</label>
+    | Horario:
+    <input type="time" name="horarioEntradaSegunda">
+    às
+    <input type="time" name="horarioSaidaSegunda">
+</p>
+
+<p> 
+    <label><input type="checkbox" value="tercaFeira">3° feira</label>
+    | Horario:
+    <input type="time" name="horarioEntradaTerca">
+    às
+    <input type="time" name="horarioSaidaTerca">
+</p>
+
+<p> 
+    <label><input type="checkbox" value="quartaFeira">4° feira</label>
+    | Horario:
+    <input type="time" name="horarioEntradaQuarta">
+    às
+    <input type="time" name="horarioSaidaQuarta">
+</p>
+
+<p> 
+    <label><input type="checkbox" value="quintaFeira">5° feira</label>
+    | Horario:
+    <input type="time" name="horarioEntradaQuinta">
+    às
+    <input type="time" name="horarioSaidaQuinta">
+</p>
+
+<p> 
+    <label><input type="checkbox" value="sextaFeira">6° feira</label>
+    | Horario:
+    <input type="time" name="horarioEntradaSexta">
+    às
+    <input type="time" name="horarioSaidaSexta">
+</p>
+
+<p> 
+    <label><input type="checkbox" value="sabado">Sábado</label>
+    | Horario:
+    <input type="time" name="horarioEntradaSabado">
+    às
+    <input type="time" name="horarioSaidaSabado">
+</p>
+
+<p> 
+    <label><input type="checkbox" value="domingo">Domingo</label>
+    | Horario:
+    <input type="time" name="horarioEntradaDomingo">
+    às
+    <input type="time" name="horarioSaidaDomingo">
+</p>
+
+<p>
+    TEM Q BOTAR Curitiba, ______ de ____________ de 2025
+    TEM Q BOTAR ASSINATURA
+</p>
+
+
+<p><input type="submit" value="submit" ></p>
+
+
+</form>
+
+{% endblock %}

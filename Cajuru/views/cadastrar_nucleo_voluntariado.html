@@ -1,0 +1,32 @@
+{% extends"base.html" %}
+{% block content%}
+<div class="vertical-center">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-body">
+                    <form action="http://localhost:8449/add_nucleo_voluntariado" method="POST">
+                        <p>CPF do voluntário:</p>
+                        <p><input type="text" name="cpf_voluntario" required /></p>
+                        <p>Domingo:</p>
+                        <p><input type="text" name="domingo" placeholder="00:00 - 00:00" required /></p>
+                        <p>Segunda-feira:</p>
+                        <p><input type="text" name="segunda_feira" placeholder="00:00 - 00:00" required /></p>
+                        <p>Terça-feira:</p>
+                        <p><input type="text" name="terca_feira" placeholder="00:00 - 00:00" required /></p>
+                        <p>Quarta-feira:</p>
+                        <p><input type="text" name="quarta_feira" placeholder="00:00 - 00:00" required /></p>
+                        <p>Quinta-feira:</p>
+                        <p><input type="text" name="quinta_feira" placeholder="00:00 - 00:00" required /></p>
+                        <p>Sexta-feira:</p>
+                        <p><input type="text" name="sexta_feira" placeholder="00:00 - 00:00" required /></p>
+                        <p>Sábado:</p>
+                        <p><input type="text" name="sabado" placeholder="00:00 - 00:00" required /></p>
+                        <p><input type="submit" value="Cadastrar" /></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock%}

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Preenchimento destinado ao Núcleo de Serviço de Voluntário</h2>
+
+<form action = "{{ url_for('cadastro_voluntario.cadastro_voluntario_3') }}" method = "post">
+
+<p>
+    <label ><input type="radio" name="aprovado" value="simAprovado" onclick="toggleAprovado(false)">Sim</label>
+    <label ><input type="radio" name="aprovado" value="naoAprovado"onclick="toggleAprovado(true)">Não</label>
+    <input type="text" name="aprovado_outro" id="aprovado_outro" placeholder="Motivo:">
+</p>
+
+<p>
+    Data de início das atividades:
+    <input type="date" name="inicioAtividades">
+    Atividade:
+    <input type="text" name="atividade">
+
+</p>
+
+<p>
+    Anotações gerais:
+    <input type="text" name="anotacoesGerais">
+</p>
+
+<p>
+    Data Acolher:
+    <input type="date" name="dataAcolher">
+</p>
+
+<p>
+    Data CAV:
+    <input type="date" name="dataCav">
+</p>
+
+<p>
+    Vacinas: Início: 
+    <input type="date" name="inicioVacina">
+    Final: 
+    <input type="date" name="finalVacina"> 
+</p>
+
+<p>
+    Foto:
+    <input type="date" name="foto">
+</p>
+
+<p>
+    Cracha:
+    <input type="date" name="cracha">
+</p>
+
+<p>
+    TEM Q BOTAR FORMAÇÃO PARA VOLUNTARIOS
+    TEM Q BOTAR ASSINATURA
+</p>
+<p>
+    Coordenação Núcleo de Identidade Missão e Vocação (Voluntariado/Pastoral) do Grupo Marista
+</p>
+
+<script>
+function toggleAprovado(ativo){
+    const aprovado_outro = document.getElementById("aprovado_outro");
+    aprovado_outro.disabled = !ativo;
+    if (!ativo) aprovado_outro.value = ""
+}
+</script>
+
+</form>
+
+{% endblock %}

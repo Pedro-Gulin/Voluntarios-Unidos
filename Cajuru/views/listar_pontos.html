@@ -1,0 +1,56 @@
+<!--sensors.html -->
+{% extends"base.html" %}
+{% block content%}
+
+{% for message in get_flashed_messages() %}
+
+
+<div class="alert alert-success alert-dismissible fade show w-80 p-3" style="width: 420px; margin-left: 500px; margin-top: 30px; text-align: center;" role="alert">
+  {{ message }}
+</div>
+
+{% endfor %}
+
+<div class="vertical-center">
+  <div class="container view">
+    <div class="justify-content-center">
+      {% if pontos|length> 0 %}
+      <table id="view_pontos" class="table table-striped table-bordered" style="width:100%">
+        <p>Pontos:</p>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>CPF voluntario</th>
+            <th>Numero carteirinha</th>
+            <th>Horario</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ponto in pontos%}
+          <tr>
+            <td>{{ ponto.id }}</td>
+            <td>{{ ponto.cpf_voluntario }}</td>
+            <td>{{ ponto.numero_carteirinha }}</td>
+            <td>{{ ponto.horario }}</td>
+            <td><a href="http://localhost:8449/edit_ponto?id={{ponto.id}}">Editar</a></td>
+            <td><a href="http://localhost:8449/del_ponto?id={{ponto.id}}">Deletar</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <form action="http://localhost:8449/cadastrar_ponto">
+        <p><input type="submit" value="Adicionar ponto" /></p>
+      </form>
+      {% else %}
+      <p>Ainda não ha pontos registrados!
+      <p>
+      <form action="http://localhost:8449/cadastrar_ponto">
+        <p><input type="submit" value="Adicionar ponto" /></p>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+{% endblock%}

@@ -1,0 +1,58 @@
+{% extends"base.html" %}
+{% block content%}
+
+{% for message in get_flashed_messages() %}
+
+
+<div class="alert alert-success alert-dismissible fade show w-80 p-3" style="width: 420px; margin-left: 500px; margin-top: 30px; text-align: center;" role="alert">
+  {{ message }}
+</div>
+
+{% endfor %}
+
+<div class="vertical-center">
+  <div class="container view">
+    <div class="justify-content-center">
+      {% if habilidades_voluntario|length> 0 %}
+      <table id="view_habilidades" class="table table-striped table-bordered" style="width:100%">
+        <p>Habilidades por voluntario:</p>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>ID voluntário</th>
+            <th>Nome voluntário</th>
+            <th>ID habilidade</th>
+            <th>Nome habilidade</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for habilidade_voluntario in habilidades_voluntario%}
+          <tr>
+            <td>{{ habilidade_voluntario.id }}</td>
+            <td>{{ habilidade_voluntario.id_voluntario }}</td>
+            <td>{{ habilidade_voluntario.nome_voluntario }}</td>
+            <td>{{ habilidade_voluntario.id_habilidade }}</td>
+            <td>{{ habilidade_voluntario.nome_habilidade }}</td>
+
+            <td><a href="http://localhost:8449/edit_habilidade_voluntario?id_voluntario={{habilidade_voluntario.id_voluntario}}">Editar</a></td>
+            <td><a href="http://localhost:8449/del_habilidade_voluntario?id_voluntario={{habilidade_voluntario.id_voluntario}}">Deletar</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <form action="http://localhost:8449/associar_habilidade">
+        <p><input type="submit" value="Associar habilidade a um voluntario" /></p>
+      </form>
+      {% else %}
+      <p>Ainda não tem habilidades associadas a voluntarios registradas!
+      <p>
+      <form action="http://localhost:8449/associar_habilidade">
+        <p><input type="submit" value="Associar habilidade a um voluntario" /></p>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+{% endblock%}

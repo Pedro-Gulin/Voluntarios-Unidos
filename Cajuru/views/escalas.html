@@ -1,0 +1,63 @@
+{% extends"base.html" %}
+{% block content%}
+
+{% for message in get_flashed_messages() %}
+
+
+<div class="alert alert-success alert-dismissible fade show w-80 p-3" style="width: 420px; margin-left: 500px; margin-top: 30px; text-align: center;" role="alert">
+  {{ message }}
+</div>
+
+{% endfor %}
+
+<div class="vertical-center">
+  <div class="container view">
+    <div class="justify-content-center">
+      {% if escalas|length> 0 %}
+      <table id="view_escalas" class="table table-striped table-bordered" style="width:100%">
+        <p>Escalas:</p>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>ID voluntario</th>
+            <th>Nome voluntario</th>
+            <th>ID area</th>
+            <th>Nome area</th>
+            <th>Data</th>
+            <th>Turno</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for escala in escalas%}
+          <tr>
+            <td>{{ escala.id }}</td>
+            <td>{{ escala.id_voluntario }}</td>
+            <td>{{ escala.nome_voluntario }}</td>
+            <td>{{ escala.id_area }}</td>
+            <td>{{ escala.nome_area }}</td>
+            <td>{{ escala.data }}</td>
+            <td>{{ escala.turno }}</td>
+            <td>{{ escala.status }}</td>
+            <td><a href="http://localhost:8449/edit_escala?id_voluntario={{escala.id_voluntario}}">Editar</a></td>
+            <td><a href="http://localhost:8449/del_escala?id_voluntario={{escala.id_voluntario}}">Deletar</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <form action="http://localhost:8449/cadastrar_escala">
+        <p><input type="submit" value="Adicionar Escala" /></p>
+      </form>
+      {% else %}
+      <p>Ainda não tem escalas registradas!
+      <p>
+      <form action="http://localhost:8449/cadastrar_escala">
+        <p><input type="submit" value="Adicionar Escala" /></p>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+{% endblock%}

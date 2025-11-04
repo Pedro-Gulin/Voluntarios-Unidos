@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="vertical-center">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-body">
+          <form action="http://localhost:8449/add_ponto" method="POST">
+            <p>CPF do voluntário:</p>
+            <p>
+              <input type="text" name="cpf_voluntario" id="cpf_voluntario" value="{{ cpf_voluntario }}" required />
+            </p>
+
+            <p>Número da carteirinha (tag):</p>
+            <p>
+              <input type="text" name="numero_carteirinha" id="numero_carteirinha" value="{{ ultima_tag }}" required />
+            </p>
+
+            <p>Horário:</p>
+            <p>
+              <input type="text" name="horario" id="horario" placeholder="Será preenchido automaticamente" readonly />
+            </p>
+
+            <p><input type="submit" value="Cadastrar" /></p>
+          </form>
+
+          <p id="tagDisplay" style="font-weight: bold; color: green; margin-top: 10px;">
+            Aguardando leitura da tag...
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function preencherHorarioInicial() {
+    const horarioInput = document.getElementById("horario");
+    const agora = new Date();
+    const dataFormatada = agora.toLocaleString("pt-BR", {
+      timeZone: "America/Sao_Paulo",
+    });
+    horarioInput.value = dataFormatada;
+  }
+
+  preencherHorarioInicial();
+
+  async function atualizarTag() {
+    try {
+      const resposta = await fetch("/ultima_tag");
+      const tag = await resposta.text();
+
+      const inputTag = document.getElementById("numero_carteirinha");
+      const display = document.getElementById("tagDisplay");
+      const horarioInput = document.getElementById("horario");
+
+      if (inputTag && tag && tag !== "Nenhuma tag lida ainda") {
+        inputTag.value = tag;
+        display.textContent = "Tag atual: " + tag;
+
+        const agora = new Date();
+        const dataFormatada = agora.toLocaleString("pt-BR", {
+          timeZone: "America/Sao_Paulo",
+        });
+        horarioInput.value = dataFormatada;
+      }
+    } catch (erro) {
+      console.error("Erro ao atualizar tag:", erro);
+    }
+  }
+  setInterval(atualizarTag, 1000);
+</script>
+{% endblock %}
