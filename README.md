@@ -28,3 +28,22 @@ O **Voluntários Unidos** representa a aplicação prática dos conhecimentos ad
 Este projeto é de uso **acadêmico e educacional**, podendo ser reutilizado e adaptado livremente, desde que citada a fonte original.  
 
 ---
+
+---
+
+## Como iniciar o programa?
+
+1 - Garantir que você tem o Docker Desktop instalado: https://docs.docker.com/desktop/setup/install/windows-install/
+2 - Abre o terminal no lugar desejado
+3 - Digitar: git clone https://github.com/Pedro-Gulin/Voluntarios-Unidos.git
+4 - Entrar na pasta que foi criada: cd Sistema-de-voluntarios-cajuru
+5 - Clicar no "INICIAR_PROGRAMA.bash" que está dentro da pasta "Cajuru"
+6 - Esperar fazer tudo que precisa ser feito
+7 - Após finalizar, pressione qualquer tecla
+8 - Após o CMD fechar, clicar no "PARAR_PROGRAMA.bash"
+9 - Após finalizar, pressione qualquer tecla
+10 - Após CMD fechar, clicar no "INICIAR_PROGRAMA.bash"
+11 - Testar o site utilizando o link --> https://localhost:8449
+12 - Logar com --> Usuário: pedro@pedro.com e Senha: 1234
+
+---
