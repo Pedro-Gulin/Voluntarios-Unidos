@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: hospital_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: '1234'
+      MYSQL_DATABASE: 'voluntarios_cajuru'
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  web:
+    build: .
+    container_name: hospital_web
+    restart: unless-stopped
+    ports:
+      - "8449:8449"
+    environment:
+      DATABASE_URL: 'mysql+pymysql://root:1234@db:3306/voluntarios_cajuru'
+    depends_on:
+      - db 
+
+volumes:
+  mysql_data:

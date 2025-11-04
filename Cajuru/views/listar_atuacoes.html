@@ -19,10 +19,13 @@
         <p>Areas:</p>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Andar onde se encontra</th>
+            <th>ID atuação</th>
+            <th>Nome do voluntário</th>
+            <th>ID da área</th>
+            <th>Horas totais</th>
             <th>Descrição</th>
+            <th>Data de início</th>
+            <th>Data de fim</th>
           </tr>
         </thead>
         <tbody>
@@ -32,10 +35,11 @@
             <td>{{ atuacao.nome_voluntario }}</td>
             <td>{{ atuacao.id_area }}</td>
             <td>{{ atuacao.horas }}</td>
+            <td>{{ atuacao.descricao }}</td>
             <td>{{ atuacao.data_inicio }}</td>
             <td>{{ atuacao.data_fim }}</td>
             <td><a href="http://localhost:8449/edit_atuacao?nome_voluntario={{atuacao.nome_voluntario}}">Editar</a></td>
-            <td><a href="http://localhost:8449/del_atuacao?id={{atuacao.id}}">Deletar</a></td>
+            <td><a href="http://localhost:8449/del_atuacao?nome_voluntario={{atuacao.nome_voluntario}}">Deletar</a></td>
           </tr>
           {% endfor %}
         </tbody>

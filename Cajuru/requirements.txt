@@ -1,0 +1,9 @@
+Flask==3.0.3
+Flask-Login==0.6.3
+Flask-SQLAlchemy
+SQLAlchemy==2.0.36
+paho-mqtt==2.1.0
+python-dateutil==2.9.0.post0
+gunicorn
+pymysql
+cryptography

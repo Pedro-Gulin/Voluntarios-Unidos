@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from controllers.users_controller import user
 from models import db
+import os
 from flask_login import LoginManager, login_user, login_required, current_user, logout_user
 from models.user.users import Users
 from controllers.voluntarios_controller import voluntarios
@@ -54,7 +55,11 @@ def create_app():
                 static_folder="./static/",
                 root_path="./")
     
-    app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:1234@localhost:3307/voluntarios_cajuru"
+    db_url = os.environ.get('DATABASE_URL')
+    if not db_url:
+        db_url = "mysql+pymysql://root:1234@localhost:3307/voluntarios_cajuru"
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_url
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SECRET_KEY'] = 'rex2704'
     app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {

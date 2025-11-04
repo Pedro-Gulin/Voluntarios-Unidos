@@ -324,6 +324,7 @@ def api_volu_pontos_mes():
 
         data = (
             db.session.query(Voluntarios.nome, func.count(Ponto.id))
+            .join(Ponto, Voluntarios.cpf == Ponto.cpf_voluntario)
             .filter(Ponto.horario.between(inicio, fim))
             .group_by(Voluntarios.nome)
             .order_by(Voluntarios.nome)

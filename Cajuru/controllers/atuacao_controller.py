@@ -33,34 +33,50 @@ def add_atuacao():
 @atuacao.route('/edit_atuacao')
 def edit_atuacao():
     nome_voluntario = request.args.get("nome_voluntario")
-    voluntario = Voluntarios.buscar_voluntario(nome_voluntario)
-    return render_template("update_atuacao.html", voluntario = voluntario)
+    atuacao_obj = Atuacao.buscar_atuacao_voluntario(nome_voluntario)
+    return render_template("update_atuacao.html", atuacao = atuacao_obj)
         
 @atuacao.route('/update_atuacao', methods=['POST'])
 def update_atuacao():
     nome_voluntario = request.form["nome_voluntario"]
-    nome_area = request.form["nome_area"]
-    horas = request.form["horas"]
-    descricao = request.form["descricao"]
-    data_inicio = request.form["data_inicio"]
-    data_fim = request.form["data_fim"]
+
+    atuacao_obj = Atuacao.buscar_atuacao_voluntario(nome_voluntario)
         
-    atuacao = Atuacao.buscar_atuacao_voluntario(nome_voluntario)
-        
-    if atuacao:
+    if atuacao_obj:
+        nome_area = request.form["nome_area"]
+        horas = request.form["horas"]
+        valor_hora = request.form["valor_hora"]
+        descricao = request.form["descricao"]
+        data_inicio = request.form["data_inicio"]
+        data_fim = request.form["data_fim"]
+
         if nome_area:
-                atuacao.nome_area = nome_area
+            atuacao_obj.nome_area = nome_area
         if horas:
-                atuacao.horas = horas
+            atuacao_obj.horas = horas
+        if valor_hora:
+            atuacao_obj.valor_hora = valor_hora
         if descricao:
-                atuacao.descricao = descricao
+            atuacao_obj.descricao = descricao
         if data_inicio:
-                atuacao.data_inicio = data_inicio
+            atuacao_obj.data_inicio = data_inicio
         if data_fim:
-                atuacao.data_fim = data_fim
+            atuacao_obj.data_fim = data_fim
+            
         db.session.commit()
-        return redirect("atuacao")
+        flash("Atuação atualizada com sucesso!")
+        return redirect(url_for('atuacao.listar_atuacoes'))
     else:
         flash("Atuacao nao encontrada!")
         db.session.rollback()
-        return redirect("atuacao")
+        return redirect(url_for('atuacao.listar_atuacoes'))
+    
+@atuacao.route('/del_atuacao', methods=['GET'])
+def del_atuacao():
+    nome_voluntario = request.args.get("nome_voluntario")
+    atuacao = Atuacao.buscar_atuacao_voluntario(nome_voluntario)
+            
+    db.session.delete(atuacao)
+    db.session.commit()
+    flash("Atuação deletada com sucesso!")
+    return redirect(url_for('atuacao.listar_atuacoes'))

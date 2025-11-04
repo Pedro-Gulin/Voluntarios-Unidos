@@ -5,14 +5,16 @@
     <div class="card">
       <div class="card-header">
         <div class="card-body">
-          <form action="http://localhost:8449/remanejar_atuacao" method="post">
+          <form action="http://localhost:8449/update_atuacao" method="post">
             
             <p>Nome:</p>
-            <p><input type="text" name="nome_voluntario" value="{{ atuacao.nome }}" /></p>
+            <p><input type="text" name="nome_voluntario" value="{{ atuacao.nome_voluntario }}" /></p>
             <p>Area:</p>
             <p><input type="text" name="nome_area" /></p>
             <p>Quantidade de horas:</p>
             <p><input type="text" name="horas"/></p>
+            <p>Valor por hora (trabalho convencional):</p>
+            <p><input type="text" name="valor_hora"/></p>
             <p>Descricao:</p>
             <p><input type="text" name="descricao"/></p> 
             <p>Data de inicio das atividades:</p>
