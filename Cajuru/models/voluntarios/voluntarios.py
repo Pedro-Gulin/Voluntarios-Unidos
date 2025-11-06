@@ -1,5 +1,6 @@
 from sqlalchemy import select
 from models.db import db
+from datetime import datetime
 
 class Voluntarios(db.Model):
     __tablename__ = 'voluntarios'
@@ -34,10 +35,11 @@ class Voluntarios(db.Model):
     codigo_carteirinha = db.Column(db.String(50), nullable=True)
     
     def salvar_voluntario(nome, data_nasc, local_nasc, rg, cpf, estado_civil, nome_conjuge,
-                                 nome_pai, nome_mae, endereco, cep, telefone, religiao, email, escolaridade, local_trabalho, ocupacao, tratamento, transporte, sab_volun, trab_vol , grupo_vol, como_contri, musical, alimentacao, data_vinculo, codigo_carteirinha):
+                                 nome_pai, nome_mae, endereco, cep, telefone, religiao, email, escolaridade, local_trabalho, ocupacao, tratamento, transporte, sab_volun, trab_vol , grupo_vol, como_contri, musical, alimentacao):
+    
         
         voluntario = Voluntarios(nome = nome, data_nasc = data_nasc, local_nasc = local_nasc, rg = rg, cpf = cpf, estado_civil = estado_civil, nome_conjuge = nome_conjuge,
-                                 nome_pai = nome_pai, nome_mae = nome_mae, endereco = endereco, cep = cep, telefone = telefone, religiao = religiao, email = email, escolaridade = escolaridade, local_trabalho = local_trabalho, ocupacao = ocupacao, tratamento = tratamento, transporte = transporte, sab_volun = sab_volun, trab_vol  = trab_vol, grupo_vol = grupo_vol, como_contri = como_contri, musical = musical, alimentacao = alimentacao, data_vinculo = data_vinculo, codigo_carteirinha = codigo_carteirinha)
+                                 nome_pai = nome_pai, nome_mae = nome_mae, endereco = endereco, cep = cep, telefone = telefone, religiao = religiao, email = email, escolaridade = escolaridade, local_trabalho = local_trabalho, ocupacao = ocupacao, tratamento = tratamento, transporte = transporte, sab_volun = sab_volun, trab_vol  = trab_vol, grupo_vol = grupo_vol, como_contri = como_contri, musical = musical, alimentacao = alimentacao)
         
         db.session.add(voluntario)
         db.session.commit()
@@ -89,3 +91,13 @@ class Voluntarios(db.Model):
             db.session.commit()
             return voluntario
         return None
+    
+    @staticmethod
+    def associar_tag(cpf, codigo_carteirinha):
+        voluntario = Voluntarios.query.filter_by(cpf = cpf).first()
+        if voluntario:
+            voluntario.codigo_carteirinha = codigo_carteirinha
+            
+    @staticmethod
+    def buscar_voluntarios():
+        return Voluntarios.query.all()

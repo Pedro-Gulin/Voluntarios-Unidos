@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+<div class="alert alert-success alert-dismissible fade show mx-auto mt-3 text-center" style="max-width: 500px;" role="alert">
+  {{ message }}
+</div>
+{% endfor %}
+
+<div class="container my-5">
+  <h3 class="mb-4 text-center">Voluntários Cadastrados</h3>
+
+  {% if voluntarios|length > 0 %}
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for voluntario in voluntarios %}
+    <div class="col">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title text-primary">{{ voluntario.nome }}</h5>
+          <p class="card-text"><strong>Código:</strong> {{ voluntario.codigo_carteirinha }}</p>
+
+          <hr>
+
+          <h6 class="text-secondary mb-2">📋 Dados Pessoais</h6>
+          <ul class="list-unstyled small">
+            <li><strong>Data nasc.:</strong> {{ voluntario.data_nasc }}</li>
+            <li><strong>Local nasc.:</strong> {{ voluntario.local_nasc }}</li>
+            <li><strong>RG:</strong> {{ voluntario.rg }}</li>
+            <li><strong>CPF:</strong> {{ voluntario.cpf }}</li>
+            <li><strong>Estado civil:</strong> {{ voluntario.estado_civil }}</li>
+            {% if voluntario.nome_conjuge %}<li><strong>Cônjuge:</strong> {{ voluntario.nome_conjuge }}</li>{% endif %}
+            <li><strong>Pai:</strong> {{ voluntario.nome_pai }}</li>
+            <li><strong>Mãe:</strong> {{ voluntario.nome_mae }}</li>
+          </ul>
+
+          <h6 class="text-secondary mb-2 mt-3">📍 Contato</h6>
+          <ul class="list-unstyled small">
+            <li><strong>Endereço:</strong> {{ voluntario.endereco }}</li>
+            <li><strong>CEP:</strong> {{ voluntario.cep }}</li>
+            <li><strong>Telefone:</strong> {{ voluntario.telefone }}</li>
+            <li><strong>E-mail:</strong> {{ voluntario.email }}</li>
+          </ul>
+
+          <h6 class="text-secondary mb-2 mt-3">💼 Profissional</h6>
+          <ul class="list-unstyled small">
+            <li><strong>Escolaridade:</strong> {{ voluntario.escolaridade }}</li>
+            <li><strong>Trabalho:</strong> {{ voluntario.local_trabalho }}</li>
+            <li><strong>Ocupação:</strong> {{ voluntario.ocupacao }}</li>
+          </ul>
+
+          <h6 class="text-secondary mb-2 mt-3">🧭 Voluntariado</h6>
+          <ul class="list-unstyled small">
+            <li><strong>Tratamento:</strong> {{ voluntario.tratamento }}</li>
+            <li><strong>Transporte:</strong> {{ voluntario.transporte }}</li>
+            <li><strong>Como soube:</strong> {{ voluntario.sab_volun }}</li>
+            <li><strong>Fez antes?</strong> {{ voluntario.trab_vol }}</li>
+            <li><strong>Grupo:</strong> {{ voluntario.grupo_vol }}</li>
+            <li><strong>Contribuição:</strong> {{ voluntario.como_contri }}</li>
+            <li><strong>Música:</strong> {{ voluntario.musical }}</li>
+            <li><strong>Alimentação:</strong> {{ voluntario.alimentacao }}</li>
+            <li><strong>Data vínculo:</strong> {{ voluntario.data_vinculo }}</li>
+          </ul>
+        </div>
+
+        <div class="card-footer text-center bg-light">
+          <a href="http://localhost:8449/edit_voluntario?nome={{voluntario.nome}}" class="btn btn-sm btn-outline-primary me-2">Editar</a>
+          <a href="http://localhost:8449/del_voluntario?nome={{voluntario.nome}}" class="btn btn-sm btn-outline-danger">Excluir</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% else %}
+  <p class="text-center mt-4">Ainda não há voluntários registrados.</p>
+  {% endif %}
+
+  <div class="text-center mt-5">
+    <form action="http://localhost:8449/cadastrar_area">
+      <input type="submit" class="btn btn-success" value="Adicionar área" />
+    </form>
+  </div>
+</div>
+
+{% endblock %}

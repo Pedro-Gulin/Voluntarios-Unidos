@@ -55,7 +55,6 @@ from models.voluntarios.voluntarios import Voluntarios
 def add_ponto():
     cpf_voluntario = request.form.get("cpf_voluntario")
     numero_carteirinha = request.form.get("numero_carteirinha")
-    horario = request.form.get("horario")
 
     if cpf_voluntario and numero_carteirinha and numero_carteirinha != "Nenhuma tag lida ainda":
         voluntario = Voluntarios.buscar_por_cpf(cpf_voluntario)
@@ -65,7 +64,8 @@ def add_ponto():
             flash(f"Tag vinculada ao CPF {cpf_voluntario} com sucesso!")
 
     try:
-        Ponto.bater_ponto(cpf_voluntario, numero_carteirinha, horario)
+        Ponto.bater_ponto(cpf_voluntario, numero_carteirinha)
+        
         flash("Ponto cadastrado com sucesso!")
     except ValueError as e:
         flash(f"Erro: {str(e)}")
@@ -73,10 +73,6 @@ def add_ponto():
         flash(f"Erro ao registrar ponto: {str(e)}")
 
     return redirect('/ponto')
-
-
-
-
 
 @ponto_.route('/edit_ponto')
 def edit_ponto():

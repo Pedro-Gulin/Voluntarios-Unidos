@@ -5,6 +5,7 @@ from models import db
 import os
 from flask_login import LoginManager, login_user, login_required, current_user, logout_user
 from models.user.users import Users
+from models.voluntarios.voluntarios import Voluntarios
 from controllers.voluntarios_controller import voluntarios
 from controllers.areas_controller import areas_
 from controllers.atuacao_controller import atuacao
@@ -26,6 +27,7 @@ from controllers.habilidade_voluntario_controller import habilidade_voluntario_
 from models.voluntarios.nucleo_voluntariado import nucleo_voluntariado
 from controllers.nucleo_voluntariado_controller import nucleo_voluntariado_
 from controllers.relatorios_controller import relatorios_
+from flask import current_app
 
 MQTT_BROKER = "broker.mqttdashboard.com"
 MQTT_TOPIC_SEND = "exp.criativas/pcparaesp"
@@ -33,13 +35,17 @@ MQTT_TOPIC_RECEIVE = "exp.criativas/espparapc"
 
 
 def on_message(client, userdata, message):
-    tag = message.payload.decode()
-    shared_state.ultima_tag = tag
-    print(f"Tag recebida: {tag}")
+    with current_app.app_context():
+        tag = message.payload.decode()
+        shared_state.ultima_tag = tag
+        print(f"Tag recebida: {tag}")
 
-    resultado = processar_tag(tag)
+        try:
+            resultado = processar_tag(tag)
+            client.publish(MQTT_TOPIC_SEND, resultado)
+        except Exception as e:
+            print("Erro no processamento:", e)
 
-    client.publish(MQTT_TOPIC_SEND, resultado)
 
 def start_mqtt():
     client = mqtt.Client(client_id="teste_flask_mqtt")
@@ -108,6 +114,11 @@ def create_app():
     def users():
         users = Users.get_users()
         return render_template("users.html", users=users)
+    
+    @app.route('/listar_voluntarios')
+    def listar_voluntarios():
+        voluntarios = Voluntarios.buscar_voluntarios()
+        return render_template("listar_voluntarios.html", voluntarios = voluntarios)
     
     @app.route('/areas')
     def areas():
