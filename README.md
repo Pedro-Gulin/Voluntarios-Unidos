@@ -37,12 +37,12 @@ Este projeto é de uso **acadêmico e educacional**, podendo ser reutilizado e a
 2. Abrir o terminal no lugar desejado
 3. Digitar: `git clone https://github.com/Pedro-Gulin/Voluntarios-Unidos.git`
 4. Entrar na pasta criada: `cd Sistema-de-voluntarios-cajuru` ou somente `cd Cajuru`
-5. Clicar no `INICIAR_PROGRAMA.bash` dentro da pasta `Cajuru`
+5. Clicar no `INICIAR_PROGRAMA.bat` dentro da pasta `Cajuru`
 6. Esperar o processo terminar
 7. Após finalizar, pressione qualquer tecla
-8. Após o CMD fechar, clicar em `PARAR_PROGRAMA.bash`
+8. Após o CMD fechar, clicar em `PARAR_PROGRAMA.bat`
 9. Após finalizar, pressione qualquer tecla
-10. Após o CMD fechar, clicar em `INICIAR_PROGRAMA.bash`
+10. Após o CMD fechar, clicar em `INICIAR_PROGRAMA.bat`
 11. Testar o site em: [https://localhost:8449](https://localhost:8449)
 12. Logar com → **Usuário:** `pedro@pedro.com` | **Senha:** `1234`
 
@@ -52,7 +52,7 @@ Este projeto é de uso **acadêmico e educacional**, podendo ser reutilizado e a
 
 ## Fiz alguma alteração, e agora?
 
-1. Cline no arquivo: `PARAR_PROGRAMA.bash`
+1. Cline no arquivo: `PARAR_PROGRAMA.bat`
 2. Abra a pasta interna do projeto "Cajuru" no CMD / terminal
 3. Digite: `docker-compose up --build`
 4. Espere carregar e teste sua nova funcionalidade
