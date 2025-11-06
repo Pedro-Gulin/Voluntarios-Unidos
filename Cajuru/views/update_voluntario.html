@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-5">
+  <div class="card shadow-lg p-4">
+    <h3 class="text-center mb-4">Editar Voluntário</h3>
+
+    <form action="http://localhost:8449/updt_voluntario" method="post">
+
+      <!-- Dados pessoais -->
+      <h5 class="text-primary mt-3 mb-2">📋 Dados Pessoais</h5>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Nome</label>
+          <input type="text" name="nome" class="form-control" value="{{ voluntario.nome }}" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Data de Nascimento</label>
+          <input type="date" name="data_nasc" class="form-control" value="{{ voluntario.data_nasc }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Local de Nascimento</label>
+          <input type="text" name="local_nasc" class="form-control" value="{{ voluntario.local_nasc }}">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">RG</label>
+          <input type="text" name="rg" class="form-control" value="{{ voluntario.rg }}">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">CPF</label>
+          <input type="text" name="cpf" class="form-control" value="{{ voluntario.cpf }}">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Estado Civil</label>
+          <input type="text" name="estado_civil" class="form-control" value="{{ voluntario.estado_civil }}">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Nome do Cônjuge</label>
+          <input type="text" name="nome_conjuge" class="form-control" value="{{ voluntario.nome_conjuge }}">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Nome do Pai</label>
+          <input type="text" name="nome_pai" class="form-control" value="{{ voluntario.nome_pai }}">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Nome da Mãe</label>
+          <input type="text" name="nome_mae" class="form-control" value="{{ voluntario.nome_mae }}">
+        </div>
+      </div>
+
+      <!-- Contato -->
+      <h5 class="text-primary mt-4 mb-2">📍 Contato</h5>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Endereço</label>
+          <input type="text" name="endereco" class="form-control" value="{{ voluntario.endereco }}">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">CEP</label>
+          <input type="text" name="cep" class="form-control" value="{{ voluntario.cep }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Telefone</label>
+          <input type="text" name="telefone" class="form-control" value="{{ voluntario.telefone }}">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">E-mail</label>
+          <input type="email" name="email" class="form-control" value="{{ voluntario.email }}">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Religião</label>
+          <input type="text" name="religiao" class="form-control" value="{{ voluntario.religiao }}">
+        </div>
+      </div>
+
+      <!-- Profissional -->
+      <h5 class="text-primary mt-4 mb-2">💼 Profissional</h5>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Escolaridade</label>
+          <input type="text" name="escolaridade" class="form-control" value="{{ voluntario.escolaridade }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Local de Trabalho</label>
+          <input type="text" name="local_trabalho" class="form-control" value="{{ voluntario.local_trabalho }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Ocupação</label>
+          <input type="text" name="ocupacao" class="form-control" value="{{ voluntario.ocupacao }}">
+        </div>
+      </div>
+
+      <!-- Voluntariado -->
+      <h5 class="text-primary mt-4 mb-2">🧭 Voluntariado</h5>
+      <div class="row g-3">
+        <div class="col-md-3">
+          <label class="form-label">Tratamento</label>
+          <input type="text" name="tratamento" class="form-control" value="{{ voluntario.tratamento }}">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Transporte</label>
+          <input type="text" name="transporte" class="form-control" value="{{ voluntario.transporte }}">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Como soube do voluntariado</label>
+          <input type="text" name="sab_volun" class="form-control" value="{{ voluntario.sab_volun }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Já fez trabalho voluntário?</label>
+          <input type="text" name="trab_vol" class="form-control" value="{{ voluntario.trab_vol }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Grupo</label>
+          <input type="text" name="grupo_vol" class="form-control" value="{{ voluntario.grupo_vol }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Contribuição</label>
+          <input type="text" name="como_contri" class="form-control" value="{{ voluntario.como_contri }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Música</label>
+          <input type="text" name="musical" class="form-control" value="{{ voluntario.musical }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Alimentação</label>
+          <input type="text" name="alimentacao" class="form-control" value="{{ voluntario.alimentacao }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Data de vínculo</label>
+          <input type="date" name="data_vinculo" class="form-control" value="{{ voluntario.data_vinculo }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Código da carteirinha</label>
+          <input type="text" name="codigo_carteirinha" class="form-control" value="{{ voluntario.codigo_carteirinha }}">
+        </div>
+      </div>
+
+      <div class="text-center mt-5">
+        <button type="submit" class="btn btn-success px-4">Salvar alterações</button>
+        <a href="http://localhost:8449/listar_voluntarios" class="btn btn-secondary px-4 ms-2">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

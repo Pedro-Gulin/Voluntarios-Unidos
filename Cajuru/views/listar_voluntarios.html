@@ -63,8 +63,8 @@
         </div>
 
         <div class="card-footer text-center bg-light">
-          <a href="http://localhost:8449/edit_voluntario?nome={{voluntario.nome}}" class="btn btn-sm btn-outline-primary me-2">Editar</a>
-          <a href="http://localhost:8449/del_voluntario?nome={{voluntario.nome}}" class="btn btn-sm btn-outline-danger">Excluir</a>
+          <a href="http://localhost:8449/edit_voluntario?cpf={{voluntario.cpf}}" class="btn btn-sm btn-outline-primary me-2">Editar</a>
+          <a href="http://localhost:8449/del_voluntario?cpf={{voluntario.cpf}}" class="btn btn-sm btn-outline-danger">Excluir</a>
         </div>
       </div>
     </div>
@@ -74,12 +74,6 @@
   {% else %}
   <p class="text-center mt-4">Ainda não há voluntários registrados.</p>
   {% endif %}
-
-  <div class="text-center mt-5">
-    <form action="http://localhost:8449/cadastrar_area">
-      <input type="submit" class="btn btn-success" value="Adicionar área" />
-    </form>
-  </div>
 </div>
 
 {% endblock %}
