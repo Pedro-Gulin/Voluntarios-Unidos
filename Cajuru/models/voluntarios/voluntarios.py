@@ -33,17 +33,17 @@ class Voluntarios(db.Model):
     alimentacao = db.Column(db.String(50), nullable=True)
     data_vinculo = db.Column(db.Date, nullable=True)
     codigo_carteirinha = db.Column(db.String(50), nullable=True)
-    
+
     def salvar_voluntario(nome, data_nasc, local_nasc, rg, cpf, estado_civil, nome_conjuge,
-                                 nome_pai, nome_mae, endereco, cep, telefone, religiao, email, escolaridade, local_trabalho, ocupacao, tratamento, transporte, sab_volun, trab_vol , grupo_vol, como_contri, musical, alimentacao):
-    
-        
+                                 nome_pai, nome_mae, endereco, cep, telefone, religiao, email, escolaridade, local_trabalho, ocupacao, tratamento, transporte, sab_volun, trab_vol , grupo_vol, como_contri, musical, alimentacao, data_vinculo):
+
+
         voluntario = Voluntarios(nome = nome, data_nasc = data_nasc, local_nasc = local_nasc, rg = rg, cpf = cpf, estado_civil = estado_civil, nome_conjuge = nome_conjuge,
-                                 nome_pai = nome_pai, nome_mae = nome_mae, endereco = endereco, cep = cep, telefone = telefone, religiao = religiao, email = email, escolaridade = escolaridade, local_trabalho = local_trabalho, ocupacao = ocupacao, tratamento = tratamento, transporte = transporte, sab_volun = sab_volun, trab_vol  = trab_vol, grupo_vol = grupo_vol, como_contri = como_contri, musical = musical, alimentacao = alimentacao)
-        
+                                 nome_pai = nome_pai, nome_mae = nome_mae, endereco = endereco, cep = cep, telefone = telefone, religiao = religiao, email = email, escolaridade = escolaridade, local_trabalho = local_trabalho, ocupacao = ocupacao, tratamento = tratamento, transporte = transporte, sab_volun = sab_volun, trab_vol  = trab_vol, grupo_vol = grupo_vol, como_contri = como_contri, musical = musical, alimentacao = alimentacao, data_vinculo = data_vinculo)
+
         db.session.add(voluntario)
         db.session.commit()
-        
+
     @staticmethod
     def buscar_voluntario(nome):
         return Voluntarios.query.filter_by(nome=nome).first()
@@ -60,12 +60,12 @@ class Voluntarios(db.Model):
     @staticmethod
     def buscar_por_cpf(cpf):
         return Voluntarios.query.filter_by(cpf=cpf).first()
-    
+
     @staticmethod
     def buscar_id_por_cpf(cpf):
         voluntario = Voluntarios.query.filter_by(cpf = cpf).first()
         return voluntario.id
-    
+
     @staticmethod
     def buscar_nome_por_id(id):
         voluntario = Voluntarios.query.filter_by(id = id).first()
@@ -91,13 +91,13 @@ class Voluntarios(db.Model):
             db.session.commit()
             return voluntario
         return None
-    
+
     @staticmethod
     def associar_tag(cpf, codigo_carteirinha):
         voluntario = Voluntarios.query.filter_by(cpf = cpf).first()
         if voluntario:
             voluntario.codigo_carteirinha = codigo_carteirinha
-            
+
     @staticmethod
     def buscar_voluntarios():
         return Voluntarios.query.all()

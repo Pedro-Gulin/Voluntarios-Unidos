@@ -12,7 +12,7 @@ def cadastrar_voluntario():
 def add_voluntario_1():
     global Voluntarios
     global voluntarios
-    
+
     session['voluntario'] = {
         'nome': request.form['nome'],
         'data_nasc': request.form['dataNascimento'],
@@ -42,7 +42,7 @@ def add_voluntario_1():
 def add_voluntario_2():
     global Voluntarios
     global voluntarios
-    
+
     voluntario = session.get('voluntario', {})
     voluntario.update({
         'trab_vol': request.form['experiencias'],
@@ -52,7 +52,7 @@ def add_voluntario_2():
         'alimentacao': request.form['alimentacao'],
         'data_vinculo': request.form['dataVinculo']
     })
-    
+
     Voluntarios.salvar_voluntario(
         voluntario['nome'],
         voluntario['data_nasc'],
@@ -78,9 +78,10 @@ def add_voluntario_2():
         voluntario['grupo_vol'],
         voluntario['como_contri'],
         voluntario['musical'],
-        voluntario['alimentacao']
+        voluntario['alimentacao'],
+        voluntario['data_vinculo']
     )
-    
+
     session.pop('voluntario', None)
     return redirect(url_for('home'))
 
@@ -126,7 +127,7 @@ def updt_voluntario():
         alimentacao = request.form['alimentacao']
         data_vinculo = request.form['data_vinculo']
         codigo_carteirinha = request.form['codigo_carteirinha']
-        
+
         if data_nasc:
             voluntario.data_nasc = data_nasc
 
@@ -209,12 +210,12 @@ def updt_voluntario():
         db.session.commit()
         flash("Voluntário(a) atualizado(a) com sucesso!", "success")
         return redirect("listar_voluntarios")
-    
+
 @voluntarios.route('/del_voluntario', methods=['GET'])
 def del_voluntario():
     cpf = request.args.get("cpf")
     voluntario = Voluntarios.buscar_por_cpf(cpf)
-    
+
     if voluntario:
         db.session.delete(voluntario)
         db.session.commit()
