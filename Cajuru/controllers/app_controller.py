@@ -60,7 +60,7 @@ def create_app():
                 template_folder="./views/",
                 static_folder="./static/",
                 root_path="./")
-    
+
     db_url = os.environ.get('DATABASE_URL')
     if not db_url:
         db_url = "mysql+pymysql://root:1234@localhost:3307/voluntarios_cajuru"
@@ -72,13 +72,13 @@ def create_app():
     'connect_args': {'charset': 'utf8mb4'},
     'execution_options': {'schema_translate_map': None}
     }
-    
+
     db.init_app(app)
-    
+
     login_manager = LoginManager()
     login_manager.login_view = 'login'
     login_manager.init_app(app)
-    
+
     @login_manager.user_loader
     def load_user(user_id):
         return Users.query.get(int(user_id))
@@ -90,7 +90,7 @@ def create_app():
             password = request.form.get('password')
 
             user = Users.query.filter_by(email=email).first()
-            
+
             if not user or user.password != password:
                 flash('Email ou senha incorretos!')
                 return redirect(url_for('home'))
@@ -104,65 +104,73 @@ def create_app():
     @app.route('/')
     def index():
         return render_template("login.html")
-    
+
     @app.route('/home')
     def home():
         return render_template("index.html")
-    
+
     @app.route('/users')
     @login_required
     def users():
         users = Users.get_users()
         return render_template("users.html", users=users)
-    
+
     @app.route('/listar_voluntarios')
     def listar_voluntarios():
         voluntarios = Voluntarios.buscar_voluntarios()
         return render_template("listar_voluntarios.html", voluntarios = voluntarios)
-    
+
     @app.route('/areas')
     def areas():
         areas = Areas.buscar_areas()
         return render_template("listar_areas.html", areas=areas)
-    
+
     @app.route('/atuacao')
     def atuacao_():
         atuacoes = Atuacao.buscar_atuacoes()
         return render_template("listar_atuacoes.html", atuacoes=atuacoes)
     
+    @app.route('/chama_ponto')
+    def chama_ponto():
+        return render_template("chama_ponto.html")
+
     @app.route('/ponto')
     def pontos():
         pontos = Ponto.buscar_pontos()
         return render_template("listar_pontos.html", pontos = pontos)
-
-    @app.route('/ultima_tag')
-    def get_tag():
-        return ultima_tag
     
+    @app.route('/vincular_tag')
+    def vincular_tag():
+        return render_template("/cadastrar_ponto.html")
+
+    @app.route("/ultima_tag")
+    def ultima_tag_route():
+        from controllers.shared_state import ultima_tag
+        return ultima_tag if ultima_tag else "Nenhuma tag lida ainda"
+
     @app.route('/escalas')
     def escalas():
         escalas = Escala.buscar_escalas()
         return render_template("escalas.html", escalas = escalas)
-    
+
     @app.route('/habilidades')
     def habilidades():
         habilidades = Habilidades.buscar_habilidades()
         return render_template("habilidades.html", habilidades = habilidades)
-    
+
     @app.route('/habilidade_voluntario')
     def habilidade_voluntario():
         habilidades_voluntario = Habilidade_voluntario.buscar_habilidade_voluntario()
         return render_template("habilidade_voluntario.html", habilidades_voluntario = habilidades_voluntario)
-    
+
     @app.route('/nucleo_voluntariado')
     def nucleo_voluntariadoss():
         nucleos_voluntariados = nucleo_voluntariado.buscar_nucleo_voluntarios()
         return render_template("nucleo_voluntariado.html", nucleos_voluntariados = nucleos_voluntariados)
-    
+
     @app.route('/relatorios')
     def relatirioss():
         return render_template("relatorios.html")
-
 
     app.register_blueprint(user, url_prefix='/')
     app.register_blueprint(voluntarios, url_prefix='/')
@@ -178,5 +186,5 @@ def create_app():
     mqtt_thread = threading.Thread(target=start_mqtt)
     mqtt_thread.daemon = True
     mqtt_thread.start()
-    
+
     return app
