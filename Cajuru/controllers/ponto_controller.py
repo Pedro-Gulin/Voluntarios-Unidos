@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, flash
+from flask import Blueprint, jsonify, render_template, request, redirect, flash, url_for
 from models import db
 from models.voluntarios.ponto import Ponto
 from models.voluntarios.voluntarios import Voluntarios
@@ -49,8 +49,6 @@ def cadastrar_ponto():
         cpf_voluntario=cpf_voluntario
     )
 
-from models.voluntarios.voluntarios import Voluntarios
-
 @ponto_.route('/add_ponto', methods=['POST'])
 def add_ponto():
     cpf_voluntario = request.form.get("cpf_voluntario")
@@ -58,19 +56,23 @@ def add_ponto():
 
     if cpf_voluntario and numero_carteirinha and numero_carteirinha != "Nenhuma tag lida ainda":
         voluntario = Voluntarios.buscar_por_cpf(cpf_voluntario)
-        if voluntario and not voluntario.codigo_carteirinha:
+
+        if not voluntario:
+            flash("Voluntário não encontrado.")
+            return redirect('/ponto')
+
+        tag_existente = Voluntarios.buscar_por_tag(numero_carteirinha)
+        if tag_existente and tag_existente.cpf != cpf_voluntario:
+            flash(f"Essa tag já está vinculada ao CPF {tag_existente.cpf}.")
+            return redirect('/ponto')
+
+        if not voluntario.codigo_carteirinha:
             voluntario.codigo_carteirinha = numero_carteirinha
             db.session.commit()
             flash(f"Tag vinculada ao CPF {cpf_voluntario} com sucesso!")
-
-    try:
-        Ponto.bater_ponto(cpf_voluntario, numero_carteirinha)
-        
-        flash("Ponto cadastrado com sucesso!")
-    except ValueError as e:
-        flash(f"Erro: {str(e)}")
-    except Exception as e:
-        flash(f"Erro ao registrar ponto: {str(e)}")
+        elif voluntario.codigo_carteirinha != numero_carteirinha:
+            flash(f"Este voluntário já possui uma tag vinculada ({voluntario.codigo_carteirinha}).")
+            return redirect('/ponto')
 
     return redirect('/ponto')
 
@@ -120,3 +122,62 @@ def del_ponto():
         flash("Não foi possível deletar o ponto.")
 
     return redirect('/ponto')
+
+@ponto_.route('/api/buscar_vinculo', methods=['GET', 'POST'])
+def api_buscar_vinculo():
+    data = request.json
+    cpf_recebido = data.get('cpf')
+    tag_recebida = data.get('tag')
+
+    voluntario = None
+
+    try:
+        if cpf_recebido:
+            cpf_limpo = "".join(filter(str.isdigit, cpf_recebido))
+            if len(cpf_limpo) == 11:
+                voluntario = Voluntarios.buscar_por_cpf(cpf_limpo)
+        
+        elif tag_recebida:
+            voluntario = Voluntarios.buscar_por_tag(tag_recebida)
+
+        if voluntario:
+            return jsonify({
+                'success': True,
+                'cpf': voluntario.cpf,
+                'tag': voluntario.codigo_carteirinha
+            }), 200
+        else:
+            return jsonify({'success': False, 'message': 'Vínculo não encontrado.'}), 404
+
+    except Exception as e:
+        print(f"Erro em /api/buscar_vinculo: {e}")
+        return jsonify({'success': False, 'message': 'Erro interno no servidor.'}), 500
+    
+@ponto_.route('/bater_ponto', methods=['GET', 'POST'])
+def bater_ponto():
+    if request.method == 'POST':
+        cpf = request.form.get('cpf_voluntario')
+        tag = request.form.get('numero_carteirinha')
+        
+        try:
+            voluntario = Voluntarios.buscar_por_cpf(cpf)
+            if not voluntario:
+                flash("Voluntário não encontrado!", "danger")
+                return redirect('/ponto')
+            
+            horario = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            Ponto.bater_ponto(cpf, tag, horario)
+
+            flash("Ponto registrado com sucesso!", "success")
+            return redirect('/ponto')
+
+        except Exception as e:
+            print(f"Erro ao registrar ponto: {e}")
+            flash("Erro ao registrar ponto.", "danger")
+            return redirect('/ponto')
+
+    return render_template(
+        'chama_ponto.html',
+        cpf_voluntario="",
+        ultima_tag=""
+    )
